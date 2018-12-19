@@ -16,10 +16,10 @@ int server_handshake(int *to_client) {
   from_client = open("wkp", O_RDONLY);
   char *contents = malloc(100);
   read(from_client, contents, 100);
-  printf("From_client: %s\n", content);
+  printf("From_client: %s\n", contents);
   //char *client_pipe = malloc(100);
   unlink("wkp");
-  to_client = open(content, O_WRONLY);
+  to_client = open(contents, O_WRONLY);
   write(to_client, "hola", 5);
   return from_client;
 }
