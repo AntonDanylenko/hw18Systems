@@ -22,6 +22,8 @@ int server_handshake(int *to_client) {
   *to_client = open(contents, O_WRONLY);
   write(*to_client, "hola", 5);
   printf("c)\n");
+  read(from_client, contents, 100);
+  printf("f) %s\n", contents);
   return from_client;
 }
 
