@@ -19,8 +19,8 @@ int server_handshake(int *to_client) {
   printf("From_client: %s\n", contents);
   //char *client_pipe = malloc(100);
   unlink("wkp");
-  to_client = open(contents, O_WRONLY);
-  write(to_client, "hola", 5);
+  *to_client = open(contents, O_WRONLY);
+  write(*to_client, "hola", 5);
   return from_client;
 }
 
@@ -36,14 +36,14 @@ int server_handshake(int *to_client) {
   =========================*/
 int client_handshake(int *to_server) {
   mkfifo("priv", 0777);
-  to_server = open("wkp", O_WRONLY);
-  write(to_server, "priv", 5);
+  *to_server = open("wkp", O_WRONLY);
+  write(*to_server, "priv", 5);
   //write(to_server, getpid(), sizeof(getpid()));
   int from_server;
   from_server = open("priv", O_RDONLY);
   char *contents = malloc(100);
   read(from_server, contents, 100);
   unlink("priv");
-  write(to_server, ACK, 5);
+  write(*to_server, ACK, 5);
   return from_server;
 }
